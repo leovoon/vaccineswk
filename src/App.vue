@@ -2,8 +2,7 @@
   <h2>Vaccination in Sarawak</h2>
   <span
     >source from
-    <a
-      href="https://github.com/CITF-Malaysia/citf-public/blob/main/vax_state.csv"
+    <a href="https://github.com/CITF-Malaysia/citf-public/"
       >citf-malaysia</a
     ></span
   >
