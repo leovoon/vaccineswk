@@ -218,4 +218,10 @@ layer a {
 svg {
   overflow: visible;
 }
+
+@media screen and (max-width: 320px) {
+  .container {
+    flex-direction: column;
+  }
+}
 </style>
