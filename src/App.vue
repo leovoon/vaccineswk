@@ -219,7 +219,7 @@ svg {
   overflow: visible;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 420px) {
   .container {
     flex-direction: column-reverse;
   }
