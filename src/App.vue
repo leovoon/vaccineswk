@@ -221,7 +221,7 @@ svg {
 
 @media screen and (max-width: 320px) {
   .container {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 }
 </style>
