@@ -106,10 +106,10 @@ export default {
     today = yyyy + "-" + mm + "-" + dd
 
     const margin = ref({
-      left: 0,
+      left: 25,
       top: 0,
-      right: 0,
-      bottom: 20,
+      right: 30,
+      bottom: 25,
     })
     const lineStyle = ref({
       strokeWidth: 2,
