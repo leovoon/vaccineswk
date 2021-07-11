@@ -1,20 +1,24 @@
 <template>
   <div id="app">
-    <h2>Vaccination 💉 in Sarawak</h2>
-
+    <h2>Daily Vaccination 💉 in Malaysia</h2>
     <div class="nav">
       <router-link to="/" exact>Home</router-link>
       <router-link to="/about">About</router-link>
     </div>
-    <transition
-      name="fade"
-      mode="out-in"
-      @beforeLeave="beforeLeave"
-      @enter="enter"
-      @afterEnter="afterEnter"
-    >
-      <router-view />
-    </transition>
+
+    <router-view v-slot="{ Component }">
+      <transition
+        name="fade"
+        mode="out-in"
+        @beforeLeave="beforeLeave"
+        @enter="enter"
+        @afterEnter="afterEnter"
+      >
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </transition>
+    </router-view>
 
     <footer><p style="font-size: small">Made with ❤️ by leovoon</p></footer>
   </div>
@@ -62,16 +66,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 30px;
+  margin-top: 15px;
   overflow-x: hidden;
 }
 
 .nav {
-  margin: 1rem;
+  margin-bottom: 30px;
 }
 
 .nav > * {
-  margin: 1rem 0.5rem;
+  margin: 0.5rem 0.5rem;
   text-decoration: none;
   color: gray;
   padding: 3px 6px;
@@ -96,5 +100,10 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+@media screen and (max-width: 420px) {
+  h2 {
+    width: 240px;
+  }
 }
 </style>

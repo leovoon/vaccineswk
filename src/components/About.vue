@@ -1,10 +1,15 @@
 <template>
-  <span class="source"
-    >source from
-    <a href="https://github.com/CITF-Malaysia/citf-public/"
-      >citf-malaysia</a
-    ></span
-  >
+  <div class="source">
+    <span
+      >Data source from
+      <a href="https://github.com/CITF-Malaysia/citf-public/"
+        >citf-malaysia</a
+      ></span
+    >
+    <p>
+      <a href="https://github.com/leovoon/vaccineswk">Github repo</a>
+    </p>
+  </div>
 </template>
 
 <script>
