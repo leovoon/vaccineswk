@@ -6,19 +6,17 @@
       <router-link to="/about">About</router-link>
     </div>
 
-    <router-view v-slot="{ Component }">
-      <transition
-        name="fade"
-        mode="out-in"
-        @beforeLeave="beforeLeave"
-        @enter="enter"
-        @afterEnter="afterEnter"
-      >
-        <keep-alive>
-          <component :is="Component" />
-        </keep-alive>
-      </transition>
-    </router-view>
+    <transition
+      name="fade"
+      mode="out-in"
+      @beforeLeave="beforeLeave"
+      @enter="enter"
+      @afterEnter="afterEnter"
+    >
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </transition>
 
     <footer><p style="font-size: small">Made with ❤️ by leovoon</p></footer>
   </div>
