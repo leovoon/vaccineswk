@@ -6,51 +6,21 @@
       <router-link to="/about">About</router-link>
     </div>
 
-    <transition
-      name="fade"
-      mode="out-in"
-      @beforeLeave="beforeLeave"
-      @enter="enter"
-      @afterEnter="afterEnter"
-    >
-      <keep-alive>
-        <router-view></router-view>
-      </keep-alive>
-    </transition>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
 
     <footer><p style="font-size: small">Made with ❤️ by leovoon</p></footer>
   </div>
 </template>
 
 <script>
-import Home from "./components/Home.vue"
-import About from "./components/About.vue"
+let { Home } = await import('./components/Home.vue')
+let { About } = await import('./components/About.vue')
 
 export default {
-  name: "App",
+  name: 'App',
   components: { Home, About },
-  data() {
-    return {
-      prevHeight: 0,
-    }
-  },
-  methods: {
-    beforeLeave(element) {
-      this.prevHeight = getComputedStyle(element).height
-    },
-    enter(element) {
-      const { height } = getComputedStyle(element)
-
-      element.style.height = this.prevHeight
-
-      setTimeout(() => {
-        element.style.height = height
-      })
-    },
-    afterEnter(element) {
-      element.style.height = "auto"
-    },
-  },
 }
 </script>
 

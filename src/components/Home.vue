@@ -7,7 +7,7 @@
       :searchable="true"
       :close-on-select="false"
       :show-labels="false"
-      :hide-selected="true"
+      :hide-selected="false"
       open-direction="bottom"
       placeholder="Pick a state"
       @select="updateGraph(selectedValue)"
@@ -96,47 +96,47 @@
 </template>
 
 <script>
-import { ref, onMounted, onUpdated } from "vue"
-import { Chart, Grid, Line, Tooltip } from "vue3-charts"
-import Multiselect from "@vueform/multiselect"
+import { ref, onMounted, onUpdated } from 'vue'
+import { Chart, Grid, Line, Tooltip } from 'vue3-charts'
+import Multiselect from '@vueform/multiselect'
 
 const url =
-  "https://raw.githubusercontent.com/CITF-Malaysia/citf-public/main/vaccination/vax_state.csv"
+  'https://raw.githubusercontent.com/CITF-Malaysia/citf-public/main/vaccination/vax_state.csv'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: { Chart, Grid, Line, Tooltip, Multiselect },
   setup() {
-    const selectedValue = ref("Sarawak")
+    const selectedValue = ref('Sarawak')
     let updateGraph = ref(null)
     const options = ref([
-      "Johor",
-      "Kedah",
-      "Kelantan",
-      "Melaka",
-      "Negeri Sembilan",
-      "Pahang",
-      "Perak",
-      "Perlis",
-      "Pulau Pinang",
-      "Sabah",
-      "Sarawak",
-      "Selangor",
-      "Terengganu",
-      "W.P. Kuala Lumpur",
-      "W.P. Labuan",
-      "W.P. Putrajaya",
+      'Johor',
+      'Kedah',
+      'Kelantan',
+      'Melaka',
+      'Negeri Sembilan',
+      'Pahang',
+      'Perak',
+      'Perlis',
+      'Pulau Pinang',
+      'Sabah',
+      'Sarawak',
+      'Selangor',
+      'Terengganu',
+      'W.P. Kuala Lumpur',
+      'W.P. Labuan',
+      'W.P. Putrajaya',
     ])
     const size = ref({ width: 500, height: 420 })
     const swk = ref([])
     const latestUpdateData = ref(null)
-    const direction = ref("horizontal")
+    const direction = ref('horizontal')
     let today = new Date()
     today.setDate(today.getDate() - 1)
-    let dd = String(today.getDate()).padStart(2, "0")
-    let mm = String(today.getMonth() + 1).padStart(2, "0") //January is 0!
+    let dd = String(today.getDate()).padStart(2, '0')
+    let mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
     let yyyy = today.getFullYear()
-    today = yyyy + "-" + mm + "-" + dd
+    today = yyyy + '-' + mm + '-' + dd
 
     const margin = ref({
       left: 25,
@@ -146,31 +146,31 @@ export default {
     })
     const lineStyle = ref({
       strokeWidth: 2,
-      stroke: "#4CC9F0",
+      stroke: '#4CC9F0',
       strokeDasharray: 3,
     })
 
     const dotStyle = ref({
       strokeWidth: 1,
-      stroke: "#5e63b6",
+      stroke: '#5e63b6',
       strokeDasharray: 0,
     })
     const axis = ref({
       primary: {
-        type: "band",
+        type: 'band',
         format: (val) => {
           if (val === today) {
-            return "Last Updated 😄"
+            return 'Last Updated 😄'
           } else {
-            return ""
+            return ''
           }
 
           return val
         },
       },
       secondary: {
-        domain: ["dataMin ", "dataMax + 100000"],
-        type: "linear",
+        domain: ['dataMin ', 'dataMax + 100000'],
+        type: 'linear',
         ticks: 8,
       },
     })
@@ -188,7 +188,7 @@ export default {
             swk.value = filteredData(result.data)
             latestUpdateData.value = swk.value.slice().pop()
           } else {
-            console.log("No data from api")
+            console.log('No data from api')
           }
         },
       })
@@ -204,7 +204,7 @@ export default {
               swk.value = filteredData(result.data)
               latestUpdateData.value = swk.value.slice().pop()
             } else {
-              console.log("No data from api")
+              console.log('No data from api')
             }
           },
         })
