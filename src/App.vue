@@ -6,17 +6,19 @@
       <router-link to="/about">About</router-link>
     </div>
 
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
+    <router-view v-slot="{ Component }">
+  <keep-alive>
+    <component :is="Component" />
+  </keep-alive>
+</router-view>
 
     <footer><p style="font-size: small">Made with ❤️ by leovoon</p></footer>
   </div>
 </template>
 
 <script>
-let { Home } = await import('./components/Home.vue')
-let { About } = await import('./components/About.vue')
+import Home from './components/Home.vue'
+import About from './components/About.vue'
 
 export default {
   name: 'App',

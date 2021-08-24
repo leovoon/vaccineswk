@@ -1,5 +1,6 @@
 <template>
   <div class="selectByState">
+   
     <Multiselect
       class="selectStyle"
       v-model="selectedValue"
@@ -208,8 +209,8 @@ export default {
       return bigData.filter((i) => selectedValue.value.includes(i.state))
     }
 
-    onMounted(() => {
-      Papa.parse(url, {
+    onMounted( async () => {
+      await Papa.parse(url, {
         download: true,
         header: true,
         complete: function (result) {
@@ -292,7 +293,6 @@ svg {
 }
 
 @media screen and (max-width: 420px) {
-
 
   .chart {
     width: 100vw;
