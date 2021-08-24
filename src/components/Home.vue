@@ -29,12 +29,14 @@
         <Line
           :dataKeys="[
             'date',
-            'dose1_daily',
-            'dose2_daily',
-            'total_daily',
-            'dose1_cumul',
-            'dose2_cumul',
-            'total_cumul',
+            'daily',
+            'daily_full',
+            'daily_partial',            
+            'cumul',
+            'cumul_partial',
+            'cumul_full',
+            'pending',
+            
           ]"
           :lineStyle="lineStyle"
           :dotStyle="dotStyle"
@@ -47,16 +49,19 @@
           :config="{
             date: { label: 'Date', color: 'red' },
             state: { hide: true },
-            dose1_daily: { label: 'Dose 1', color: '#b693fe' },
-            dose2_daily: { label: 'Dose 2', color: '#8c82fc' },
-            total_daily: { label: 'Total Dose per day', color: '#27296d' },
-            dose1_cumul: { label: 'Total Dose 1', color: '#b693fe' },
-            dose2_cumul: { label: 'Total Dose 2', color: '#8c82fc' },
-            total_cumul: { label: 'Overall Total', color: '#27296d' },
+            daily: { label: 'Daily', color: '#ff69b4' },
+            daily_partial: { label: 'Daily Partial', color: '#27296d' },
+            daily_full: { label: 'Daily Full', color: '#27296d' },
+            cumul: { label: 'Cumulative', color: '#27296d' },
+            cumul_partial: { label: 'Cumulative Partial', color: '#27296d' },
+            cumul_full: { label: 'Overall Total', color: '#27296d' },
           }"
         />
       </template>
     </Chart>
+
+
+
 
     <div v-if="latestUpdateData" class="summary">
       <h3 style="color: purple">{{ latestUpdateData.state }}</h3>
@@ -65,28 +70,52 @@
         Date: <span style="color: red">{{ latestUpdateData.date }}</span>
       </p>
       <p>
-        Dose 1:
-        <span style="color: #b693fe">{{ latestUpdateData.dose1_daily }}</span>
+        Daily:
+        <span style="color: #b693fe">{{ latestUpdateData.daily  }}</span>
       </p>
       <p>
-        Dose 2:
-        <span style="color: #8c82fc">{{ latestUpdateData.dose2_daily }}</span>
+        Daily Full:
+        <span style="color: #8c82fc">{{ latestUpdateData.daily_full }}</span>
       </p>
       <p>
-        Total Dose per day:
-        <span style="color: #27296d">{{ latestUpdateData.total_daily }}</span>
+        Daily Partial:
+        <span style="color: #27296d">{{ latestUpdateData.daily_partial }}</span>
       </p>
       <p>
-        Total Dose 1:
-        <span style="color: #b693fe">{{ latestUpdateData.dose1_cumul }}</span>
+        Cumulative:
+        <span style="color: #b693fe">{{ latestUpdateData.cumul }}</span>
       </p>
       <p>
-        Total Dose 2:
-        <span style="color: #8c82fc">{{ latestUpdateData.dose2_cumul }}</span>
+        Cumulative Full:
+        <span style="color: #8c82fc">{{ latestUpdateData.cumul_full }}</span>
       </p>
       <p>
-        Overall Total:
-        <span style="color: #27296d">{{ latestUpdateData.total_cumul }}</span>
+        Cumulative Partial:
+        <span style="color: #27296d">{{ latestUpdateData.cumul_partial }}</span>
+      </p>
+      <p>
+        AstraZeneca 1:
+        <span style="color: #27296d">{{ latestUpdateData.astra1 }}</span>
+      </p>
+      <p>
+        AstraZeneca 2:
+        <span style="color: #27296d">{{ latestUpdateData.astra2 }}</span>
+      </p>
+      <p>
+        Pfizer1:
+        <span style="color: #27296d">{{ latestUpdateData.pfizer1 }}</span>
+      </p>
+      <p>
+        Pfizer2:
+        <span style="color: #27296d">{{ latestUpdateData.pfizer2 }}</span>
+      </p>
+      <p>
+        Sinovac1:
+        <span style="color: #27296d">{{ latestUpdateData.sinovac1 }}</span>
+      </p>
+      <p>
+        Sinovac2:
+                <span style="color: #27296d">{{ latestUpdateData.sinovac2 }}</span>
       </p>
       <p style="color: lightslategray; font-size: smaller">
         *update at 2359 daily
@@ -127,7 +156,7 @@ export default {
       'W.P. Labuan',
       'W.P. Putrajaya',
     ])
-    const size = ref({ width: 500, height: 420 })
+    const size = ref({ width: 600, height: 420 })
     const swk = ref([])
     const latestUpdateData = ref(null)
     const direction = ref('horizontal')
@@ -160,7 +189,7 @@ export default {
         type: 'band',
         format: (val) => {
           if (val === today) {
-            return 'Last Updated 😄'
+            return '🌟'
           } else {
             return ''
           }
@@ -187,6 +216,7 @@ export default {
           if (result !== null) {
             swk.value = filteredData(result.data)
             latestUpdateData.value = swk.value.slice().pop()
+            console.log(latestUpdateData.value)
           } else {
             console.log('No data from api')
           }
@@ -235,10 +265,7 @@ export default {
 }
 
 .container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  overflow: none;
+
   position: relative;
 }
 .chart-title {
@@ -253,7 +280,8 @@ export default {
   border: 3px solid rgba(135, 206, 250, 0.5);
   padding: 0.5rem 3rem;
   border-radius: 10px;
-  margin-left: 50px;
+  max-width: 90vw;
+  margin: 0 auto;
 }
 
 layer a {
@@ -264,19 +292,15 @@ svg {
 }
 
 @media screen and (max-width: 420px) {
-  .container {
-    flex-direction: column;
-    margin: 1rem;
-  }
 
-  .summary {
-    margin-left: 0;
-    width: 50%;
-  }
 
   .chart {
     width: 100vw;
     overflow-x: scroll;
+  }
+
+  .summary{
+    z-index: 0;
   }
 }
 </style>

@@ -7,9 +7,13 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@antv/g2plot": "^2.3.31",
+    "@j-t-mcc/vue3-chartjs": "^1.1.4",
+    "@opd/g2plot-vue": "^3.4.1",
     "@vueform/multiselect": "^2.0.1",
     "@vueuse/core": "^5.0.3",
     "axios": "^0.21.1",
+    "chart.js": "^3.5.1",
     "dayjs": "^1.10.5",
     "vue": "^3.0.5",
     "vue-router": "^4.0.10",
